@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import * as THREE from "three"
 import { useRef, useMemo, useEffect } from "react"
 import { projects } from "@/lib/projects"
+import { Line } from '@react-three/drei'
 
 // Tunables
 const SCROLL_THRESHOLD = 80
@@ -198,24 +199,21 @@ function NebulaScene({ activeIndex, setActiveIndex, setScreenPos, locked }: any)
           if (i >= j) return null
 
           const points = [a, b]
-          const geom = new THREE.BufferGeometry().setFromPoints(points)
 
           return (
             <group key={`${i}-${j}`}>
-              <line geometry={geom}>
-                <lineBasicMaterial
-                  color="red"
-                  transparent
-                  opacity={0.23}
-                />
-              </line>
-              <line geometry={geom}>
-                <lineBasicMaterial
-                  color="cyan"
-                  transparent
-                  opacity={0.23}
-                />
-              </line>
+              <Line 
+                points={points}       // Drei handles the geometry automatically
+                color="red"
+                transparent
+                opacity={0.23}
+              />
+              <Line 
+                points={points}
+                color="cyan"
+                transparent
+                opacity={0.23}
+              />
             </group>
           )
         })
